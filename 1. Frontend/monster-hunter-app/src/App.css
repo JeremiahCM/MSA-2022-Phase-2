@@ -1,38 +1,59 @@
-.App {
+body, html {
+  min-height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-image: url("./img/forest_render.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-color: #1d2515;
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+
+.monster-result {
+  background-color: rgb(120, 204, 155);
+  border-radius: 20px;
+  margin: auto;
+  margin-top: 40px;
+  padding: 20px;
+  width: 40%;
+}
+
+.monster-unknown {
+  background-color: white;
+  border-radius: 10px;
+  width: 20%;
+  margin: auto;
+  margin-top: 40px;
+  padding: 5px;
   text-align: center;
+
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+#search-header {
+  padding-bottom: 20px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.search-header {
+  margin-bottom: 200px;
+  padding-bottom: 3000px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.search-field {
+  background-color: rgb(174, 207, 170);
+  border-radius: 20px;
+  margin: auto;
+  padding: 20px;
+  padding-bottom: 30px;
+  text-align: center;
+  width: 40%;
 }
