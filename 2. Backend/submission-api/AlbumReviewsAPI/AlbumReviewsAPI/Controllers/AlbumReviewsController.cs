@@ -2,18 +2,21 @@
 using AlbumReviewsAPI.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json.Linq;
 
 namespace AlbumReviewsAPI.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class AlbumReviewsController : Controller
+    public class AlbumReviewsController : ControllerBase
     {
         private readonly AlbumReviewsAPIDbContext dbContext;
+        private readonly IDeezerService deezerService;
 
-        public AlbumReviewsController(AlbumReviewsAPIDbContext dbContext)
+        public AlbumReviewsController(AlbumReviewsAPIDbContext dbContext, IDeezerService deezerService)
         {
             this.dbContext = dbContext;
+            this.deezerService = deezerService;
         }
 
         // Retrieves all album reviews
@@ -46,11 +49,21 @@ namespace AlbumReviewsAPI.Controllers
         [HttpPost]
         public async Task<IActionResult> AddAlbumReview(AddAlbumReviewRequest addAlbumReviewRequest)
         {
+            var detailsContent = await deezerService.GetAlbumFromDeezer(addAlbumReviewRequest.ArtistName, addAlbumReviewRequest.AlbumName);
+
+            var detailsJson = JObject.Parse(detailsContent);
+            var detailsReleaseDate = (string)detailsJson["release_date"];
+            var detailsGenre = (string)detailsJson["genres"]["data"][0]["name"];
+            var detailsNumTracks = (string)detailsJson["nb_tracks"];
+
             var albumReview = new AlbumReview()
             {
                 Id = Guid.NewGuid(),
                 ArtistName = addAlbumReviewRequest.ArtistName,
                 AlbumName = addAlbumReviewRequest.AlbumName,
+                ReleaseDate = detailsReleaseDate,
+                Genre = detailsGenre,
+                NumTracks = detailsNumTracks,
                 Review = addAlbumReviewRequest.Review
             };
 

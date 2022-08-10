@@ -1,3 +1,4 @@
+using AlbumReviewsAPI.Controllers;
 using AlbumReviewsAPI.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,6 +12,13 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<AlbumReviewsAPIDbContext>(options => options.UseInMemoryDatabase("AlbumReviewsDb"));
+
+builder.Services.AddSingleton<DeezerService>();
+
+builder.Services.AddHttpClient<IDeezerService, DeezerService>(client =>
+{
+    client.BaseAddress = new Uri("https://api.deezer.com/");
+});
 
 var app = builder.Build();
 
