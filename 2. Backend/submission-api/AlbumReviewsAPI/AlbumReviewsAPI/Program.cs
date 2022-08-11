@@ -17,7 +17,7 @@ builder.Services.AddSingleton<DeezerService>();
 
 builder.Services.AddHttpClient<IDeezerService, DeezerService>(client =>
 {
-    client.BaseAddress = new Uri("https://api.deezer.com/");
+    client.BaseAddress = new Uri(builder.Configuration["DeezerAddress"]);
 });
 
 var app = builder.Build();
