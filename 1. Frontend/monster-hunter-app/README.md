@@ -1,4 +1,12 @@
-# Getting Started with Create React App
+# Frontend
+
+This is the React Web App with TypeScript for Phase 2 Frontend.
+
+This is an app to search up the details of monsters from the game Monster Hunter World.
+
+
+
+## Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
