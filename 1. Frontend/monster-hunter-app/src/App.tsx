@@ -1,13 +1,18 @@
 import axios from 'axios';
 import { useState } from 'react';
-import { palette } from '@mui/system';
 import Box from "@mui/material/Box";
+import Container from '@mui/material/Container';
+import Divider from '@mui/material/Divider';
 import IconButton from "@mui/material/IconButton";
-import Paper from "@mui/material/Paper";
 import SearchIcon from "@mui/icons-material/Search";
 import TextField from "@mui/material/TextField";
+
 import './App.css';
-import { transform } from 'typescript';
+interface ILocation {
+  id: number;
+  zoneCount: number;
+  name: string;
+}
 
 function App() {
   // State variables
@@ -52,6 +57,7 @@ function App() {
           </Box>
         ) : (
           <Box className="monster-result">
+            <Container className="monster-header">
             <h1 style={{textAlign: "center"}}>{monsterData.name}</h1>
             <h3 style={{
               textAlign: "center",
@@ -59,7 +65,13 @@ function App() {
             }}>
               {monsterData.species}
             </h3>
-            <p>Description: {monsterData.description}</p>
+            </Container>
+            <Divider variant="middle" />
+            <p><b>Description: </b>{monsterData.description}</p>
+            <p><b>Locations: </b></p>
+            <p> - {getLocations()?.join(', ')}</p>
+            <p><b>Elements: </b></p>
+            <p> - {getElements()?.join(', ')}</p>
           </Box>
         )}
       </div>
@@ -71,6 +83,18 @@ function App() {
       .then((res) => {
         setMonsterData(res.data[0]);
       })
+  }
+
+  function getLocations() {
+    if (monsterData !== undefined && monsterData !== null) {
+      return monsterData.locations.map((location: ILocation) => `${location.name} (Zone ${location.zoneCount})`);
+    }
+  }
+
+  function getElements() {
+    if (monsterData !== undefined && monsterData !== null) {
+      return monsterData.elements.map((element: string) => element.charAt(0).toUpperCase() + element.slice(1));
+    }
   }
 }
 
