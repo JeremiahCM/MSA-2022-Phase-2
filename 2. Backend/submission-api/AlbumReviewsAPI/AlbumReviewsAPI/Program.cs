@@ -11,7 +11,11 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// Add database context for the in-memory database
+
 builder.Services.AddDbContext<AlbumReviewsAPIDbContext>(options => options.UseInMemoryDatabase("AlbumReviewsDb"));
+
+// Add the DeezerService for use in the API
 
 builder.Services.AddSingleton<DeezerService>();
 

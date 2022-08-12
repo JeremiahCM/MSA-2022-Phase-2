@@ -7,7 +7,7 @@
         public string AlbumName { get; set; }
         public string ReleaseDate { get; set; }
         public string Genre { get; set; }
-        public string NumTracks { get; set; }
+        public int NumTracks { get; set; }
         public string Review { get; set; }
     }
 }

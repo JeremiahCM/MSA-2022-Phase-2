@@ -2,11 +2,20 @@
 
 namespace AlbumReviewsAPI.Controllers
 {
+    /// <summary>
+    /// Interface for the Deezer Service
+    /// </summary>
     public interface IDeezerService
     {
         Task<string> GetAlbumFromDeezer(string artistName, string albumName);
     }
 
+    /// <summary>
+    /// The DeezerService holds the function for calling the Deezer API
+    /// It calls twice:
+    ///  - First to get the album's Deezer ID from a track on the album
+    ///  - Second to use the Deezer ID to get full details about the album
+    /// </summary>
     public class DeezerService : IDeezerService
     {
         private HttpClient _client;
@@ -32,7 +41,7 @@ namespace AlbumReviewsAPI.Controllers
                 var id = (int)idJson["data"][0]["album"]["id"];
 
                 var detailsRequest = new HttpRequestMessage(HttpMethod.Get,
-                    $"/album/{id}");
+                    $"album/{id}");
 
                 HttpResponseMessage detailsResponse = await _client.SendAsync(detailsRequest);
 
